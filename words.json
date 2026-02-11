@@ -1,0 +1,91 @@
+[
+    {
+        "week":"20260119",
+        "words":[
+            {"word":"America", "alternate1":"Amercia", "alternate2":"Ameica", "alternate3":"Ameroca", "description":"America<break time=\"300ms\"/> I saw America on the map"},
+            {"word":"away", "alternate1":"awa", "alternate2":"awy", "alternate3":"awey", "description":"away<break time=\"300ms\"/> the plane flew away"},
+            {"word":"beautiful", "alternate1":"beatiful", "alternate2":"beutiful", "alternate3":"beautful", "description":"beautiful<break time=\"300ms\"/> that flower is beautiful"},
+            {"word":"behind", "alternate1":"behined", "alternate2":"behnd", "alternate3":"behine", "description":"behind<break time=\"300ms\"/> he walked behind me"},
+            {"word":"breakfast", "alternate1":"breakfest", "alternate2":"brakefast", "alternate3":"brekfast", "description":"breakfast<break time=\"300ms\"/> I eat breakfast in the morning"},
+            {"word":"country", "alternate1":"contry", "alternate2":"cuntry", "alternate3":"countery", "description":"country<break time=\"300ms\"/> which country do you live in"},
+            {"word":"cousin", "alternate1":"cosin", "alternate2":"cuzin", "alternate3":"cousan", "description":"cousin<break time=\"300ms\"/> my cousin came to visit"},
+            {"word":"draw", "alternate1":"dra", "alternate2":"daw", "alternate3":"drow", "description":"draw<break time=\"300ms\"/> I can draw a picture"}
+        ]
+    },
+    {
+        "week":"20260126",
+        "words":[
+            {"word":"earth", "alternate1":"erth", "alternate2":"eath", "alternate3":"erath", "description":"earth<break time=\"300ms\"/> the earth is our planet"},
+            {"word":"favorite", "alternate1":"favrit", "alternate2":"favorate", "alternate3":"favorit", "description":"favorite<break time=\"300ms\"/> blue is my favorite color"},
+            {"word":"father", "alternate1":"fater", "alternate2":"fathe", "alternate3":"fathr", "description":"father<break time=\"300ms\"/> my father is very kind"},
+            {"word":"knew", "alternate1":"new", "alternate2":"knwo", "alternate3":"nue", "description":"knew<break time=\"300ms\"/> I knew the answer"},
+            {"word":"learn", "alternate1":"lern", "alternate2":"larn", "alternate3":"lernn", "description":"learn<break time=\"300ms\"/> I want to learn to read"},
+            {"word":"lose", "alternate1":"loos", "alternate2":"los", "alternate3":"loze", "description":"lose<break time=\"300ms\"/> don't lose your keys"},
+            {"word":"Monday", "alternate1":"Munday", "alternate2":"Mondey", "alternate3":"Mondy", "description":"Monday<break time=\"300ms\"/> Monday is the first day of the week"},
+            {"word":"mother", "alternate1":"muther", "alternate2":"muther", "alternate3":"mothr", "description":"mother<break time=\"300ms\"/> my mother is wonderful"}
+        ]
+    },
+    {
+        "week":"20260202",
+        "words":[
+            {"word":"myself", "alternate1":"myslef", "alternate2":"mysefl", "alternate3":"misself", "description":"myself<break time=\"300ms\"/> I did it myself"},
+            {"word":"never", "alternate1":"neverr", "alternate2":"nevr", "alternate3":"nevar", "description":"never<break time=\"300ms\"/> I will never give up"},
+            {"word":"night", "alternate1":"nite", "alternate2":"nigt", "alternate3":"nighte", "description":"night<break time=\"300ms\"/> the stars shine at night"},
+            {"word":"ocean", "alternate1":"ocion", "alternate2":"ocien", "alternate3":"oshan", "description":"ocean<break time=\"300ms\"/> the ocean is very big"},
+            {"word":"party", "alternate1":"partyy", "alternate2":"parte", "alternate3":"pardy", "description":"party<break time=\"300ms\"/> I had a party last week"},
+            {"word":"perhaps", "alternate1":"perhasp", "alternate2":"perheps", "alternate3":"perhap", "description":"perhaps<break time=\"300ms\"/> perhaps we can go tomorrow"},
+            {"word":"ready", "alternate1":"redy", "alternate2":"reedy", "alternate3":"reddy", "description":"ready<break time=\"300ms\"/> are you ready"},
+            {"word":"round", "alternate1":"rund", "alternate2":"rounde", "alternate3":"rownd", "description":"round<break time=\"300ms\"/> the ball is round"},
+            {"word":"sea", "alternate1":"see", "alternate2":"seeee", "alternate3":"sie", "description":"sea<break time=\"300ms\"/> fish swim in the sea"},
+            {"word":"shall", "alternate1":"shal", "alternate2":"shale", "alternate3":"shawl", "description":"shall<break time=\"300ms\"/> shall we go now"}
+        ]
+    },
+    {
+        "week":"20260209",
+        "words":[
+            {"word":"since", "alternate1":"sence", "alternate2":"sance", "alternate3":"sinse", "description":"since<break time=\"300ms\"/> I have been here since last year"},
+            {"word":"snow", "alternate1":"sno", "alternate2":"snoe", "alternate3":"snwo", "description":"snow<break time=\"300ms\"/> it snowed last winter"},
+            {"word":"someone", "alternate1":"somone", "alternate2":"someoen", "alternate3":"someoan", "description":"someone<break time=\"300ms\"/> someone is at the door"},
+            {"word":"son", "alternate1":"sun", "alternate2":"sone", "alternate3":"sonn", "description":"son<break time=\"300ms\"/> he is my son"},
+            {"word":"soon", "alternate1":"suun", "alternate2":"sone", "alternate3":"sune", "description":"soon<break time=\"300ms\"/> I will see you soon"},
+            {"word":"space", "alternate1":"spase", "alternate2":"spac", "alternate3":"spayce", "description":"space<break time=\"300ms\"/> there is not much space"},
+            {"word":"store", "alternate1":"stor", "alternate2":"stoor", "alternate3":"stroe", "description":"store<break time=\"300ms\"/> we shop at the store"},
+            {"word":"street", "alternate1":"stret", "alternate2":"streat", "alternate3":"strete", "description":"street<break time=\"300ms\"/> our house is on this street"},
+            {"word":"such", "alternate1":"sutch", "alternate2":"suche", "alternate3":"suck", "description":"such<break time=\"300ms\"/> such a beautiful day"},
+            {"word":"summer", "alternate1":"sumer", "alternate2":"summar", "alternate3":"sume", "description":"summer<break time=\"300ms\"/> summer is the hottest season"}
+        ]
+    },
+    {
+        "week":"20260216",
+        "words":[
+            {"word":"teach", "alternate1":"tuch", "alternate2":"teech", "alternate3":"teeche", "description":"teach<break time=\"300ms\"/> teachers teach students"},
+            {"word":"their", "alternate1":"there", "alternate2":"thier", "alternate3":"thare", "description":"their<break time=\"300ms\"/> it is their house"},
+            {"word":"things", "alternate1":"tings", "alternate2":"thigns", "alternate3":"thinz", "description":"things<break time=\"300ms\"/> I have many things"},
+            {"word":"think", "alternate1":"thank", "alternate2":"thik", "alternate3":"thenk", "description":"think<break time=\"300ms\"/> I think it will rain"},
+            {"word":"third", "alternate1":"thrid", "alternate2":"therd", "alternate3":"thirt", "description":"third<break time=\"300ms\"/> he came in third place"},
+            {"word":"thought", "alternate1":"thoght", "alternate2":"thaught", "alternate3":"thawt", "description":"thought<break time=\"300ms\"/> I thought about you"},
+            {"word":"throw", "alternate1":"thro", "alternate2":"thruw", "alternate3":"throe", "description":"throw<break time=\"300ms\"/> throw the ball to me"},
+            {"word":"told", "alternate1":"tole", "alternate2":"toled", "alternate3":"tald", "description":"told<break time=\"300ms\"/> I told her the truth"},
+            {"word":"tomorrow", "alternate1":"tomarrow", "alternate2":"tommorow", "alternate3":"tomorow", "description":"tomorrow<break time=\"300ms\"/> see you tomorrow"},
+            {"word":"Tuesday", "alternate1":"Teusday", "alternate2":"Toosday", "alternate3":"Tusday", "description":"Tuesday<break time=\"300ms\"/> Tuesday comes after Monday"}
+        ]
+    },
+    {
+        "week":"20260223",
+        "words":[
+            {"word":"turned", "alternate1":"turnd", "alternate2":"terned", "alternate3":"turnde", "description":"turned<break time=\"300ms\"/> she turned around"},
+            {"word":"until", "alternate1":"untill", "alternate2":"untul", "alternate3":"antil", "description":"until<break time=\"300ms\"/> wait until tomorrow"},
+            {"word":"wanted", "alternate1":"wantd", "alternate2":"wante", "alternate3":"wantad", "description":"wanted<break time=\"300ms\"/> I wanted to go"},
+            {"word":"wasn't", "alternate1":"wasnt", "alternate2":"wuznt", "alternate3":"wasnot", "description":"wasn't<break time=\"300ms\"/> I wasn't happy about it"},
+            {"word":"watch", "alternate1":"wach", "alternate2":"wotch", "alternate3":"waych", "description":"watch<break time=\"300ms\"/> I watch television"},
+            {"word":"week", "alternate1":"weak", "alternate2":"weeke", "alternate3":"wek", "description":"week<break time=\"300ms\"/> one week has seven days"},
+            {"word":"whole", "alternate1":"hole", "alternate2":"wholle", "alternate3":"whol", "description":"whole<break time=\"300ms\"/> the whole class was excited"},
+            {"word":"whose", "alternate1":"hos", "alternate2":"hoze", "alternate3":"whos", "description":"whose<break time=\"300ms\"/> whose book is this"},
+            {"word":"while", "alternate1":"whiel", "alternate2":"wile", "alternate3":"whilst", "description":"while<break time=\"300ms\"/> I slept while you worked"},
+            {"word":"without", "alternate1":"withot", "alternate2":"witout", "alternate3":"withoud", "description":"without<break time=\"300ms\"/> I cannot go without you"},
+            {"word":"won", "alternate1":"one", "alternate2":"wone", "alternate3":"wun", "description":"won<break time=\"300ms\"/> she won the race"},
+            {"word":"world", "alternate1":"worlld", "alternate2":"werld", "alternate3":"wor", "description":"world<break time=\"300ms\"/> the world is very big"},
+            {"word":"those", "alternate1":"thoes", "alternate2":"thse", "alternate3":"thos", "description":"those<break time=\"300ms\"/> those cookies are good"}
+        ]
+    }
+]

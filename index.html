@@ -1,25 +1,256 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sight Word Quiz</title>
+    <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+    <div class="container">
+        <h1>Sight Word Quiz</h1>
+        
+        <div id="weekSelection">
+            <h3>Week of:</h3>
+            <select id="weekSelector">
+                <option value="">-- Select a week --</option>
+            </select>
+        </div>
 
-<title>Sight Word Quiz</title>
-<h1>Sight Word Quiz</h1>
-<h3>Week of:</h3>
+        <div id="quizArea" style="display: none;">
+            <div id="weekLabel"></div>
+            
+            <div id="progressContainer">
+                <div id="progressLabel"></div>
+                <progress id="progressBar" value="0" max="100"></progress>
+            </div>
 
-<list>
-<li>since</li>
-<li>snow</li>
-<li>someone</li>
-<li>son</li>
-<li>soon</li>
-<li>space</li>
-<li>store</li>
-<li>street</li>
-<li>such</li>
-<li>summer</li>
-</list>
+            <div id="wordCard">
+                <button id="wordDisplay" class="word-btn">🔊</button>
+                <div id="optionsGrid">
+                    <button class="option-btn" data-index="0"></button>
+                    <button class="option-btn" data-index="1"></button>
+                    <button class="option-btn" data-index="2"></button>
+                    <button class="option-btn" data-index="3"></button>
+                </div>
+            </div>
+            <button id="startOverBtn" class="start-over-btn">Start Over</button>
+        </div>
+    </div>
 
+    <script>
+        let wordsData = null;
+        let currentWeek = null;
+        let currentWordIndex = 0;
+        let correctCount = 0;
+        let weekWords = [];
+        let currentUtterance = null;
 
+        // Play word sound using TTS
+        function playWordSound(description) {
+            // Cancel any ongoing speech
+            speechSynthesis.cancel();
+            
+            // Split by break tags and create utterances with pauses
+            const parts = description.split(/<break time="(\d+)ms"\/>/);
+            let delay = 0;
+            
+            for (let i = 0; i < parts.length; i++) {
+                const part = parts[i].trim();
+                
+                // Skip empty parts and time values
+                if (!part || /^\d+$/.test(part)) continue;
+                
+                // Schedule this part to be spoken after the accumulated delay
+                setTimeout(() => {
+                    currentUtterance = new SpeechSynthesisUtterance(part);
+                    currentUtterance.rate = 0.8;
+                    currentUtterance.pitch = 1;
+                    speechSynthesis.speak(currentUtterance);
+                }, delay);
+                
+                // Add 300ms pause after each part (300ms pause + estimated speech time)
+                delay += 300;
+            }
+        }
+
+        // Convert YYYYmmdd to Month dd format
+        function formatWeekDate(yyyymmdd) {
+            const year = parseInt(yyyymmdd.substring(0, 4));
+            const month = parseInt(yyyymmdd.substring(4, 6)) - 1;
+            const day = parseInt(yyyymmdd.substring(6, 8));
+            const date = new Date(year, month, day);
+            return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+        }
+
+        // Shuffle array
+        function shuffle(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // Load words.json
+        async function loadWords() {
+            try {
+                const response = await fetch('words.json');
+                wordsData = await response.json();
+                populateWeekSelector();
+            } catch (error) {
+                console.error('Error loading words.json:', error);
+            }
+        }
+
+        // Populate week dropdown
+        function populateWeekSelector() {
+            const selector = document.getElementById('weekSelector');
+            wordsData.forEach(weekData => {
+                const option = document.createElement('option');
+                option.value = weekData.week;
+                option.textContent = 'Week of ' + formatWeekDate(weekData.week);
+                selector.appendChild(option);
+            });
+        }
+
+        // Handle week selection
+        document.getElementById('weekSelector').addEventListener('change', (e) => {
+            const selectedWeek = e.target.value;
+            if (selectedWeek) {
+                startQuiz(selectedWeek);
+            }
+        });
+
+        // Start quiz for selected week
+        function startQuiz(weekValue) {
+            currentWeek = weekValue;
+            const weekData = wordsData.find(w => w.week === weekValue);
+            weekWords = weekData.words;
+            currentWordIndex = 0;
+            correctCount = 0;
+
+            // Hide selector and show quiz
+            document.getElementById('weekSelection').style.display = 'none';
+            document.getElementById('quizArea').style.display = 'block';
+            
+            // Show selected week as label
+            document.getElementById('weekLabel').textContent = 'Week of ' + formatWeekDate(weekValue);
+            document.getElementById('weekLabel').style.pointerEvents = 'none';
+
+            displayWord();
+            updateProgress();
+        }
+
+        // Display current word
+        function displayWord() {
+            const currentWord = weekWords[currentWordIndex];
+            const wordBtn = document.getElementById('wordDisplay');
+            wordBtn.innerHTML = '🔊';
+            wordBtn.onclick = () => playWordSound(currentWord.description);
+            
+            // Play word sound automatically after a short delay
+            setTimeout(() => {
+                playWordSound(currentWord.description);
+            }, 500);
+
+            // Create options: word + 3 alternates
+            const options = [
+                currentWord.word,
+                currentWord.alternate1,
+                currentWord.alternate2,
+                currentWord.alternate3
+            ];
+
+            // Shuffle options
+            const shuffledOptions = shuffle(options);
+
+            // Set correct answer index for validation
+            const correctIndex = shuffledOptions.indexOf(currentWord.word);
+            window.correctAnswerIndex = correctIndex;
+
+            // Update buttons
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach((btn, index) => {
+                btn.textContent = shuffledOptions[index];
+                btn.onclick = () => checkAnswer(index, correctIndex);
+                btn.classList.remove('correct', 'incorrect');
+                btn.disabled = false;
+            });
+        }
+
+        // Check answer
+        function checkAnswer(selectedIndex, correctIndex) {
+            const buttons = document.querySelectorAll('.option-btn');
+            
+            if (selectedIndex === correctIndex) {
+                correctCount++;
+                buttons[selectedIndex].classList.add('correct');
+                updateProgress();
+                
+                // Move to next word after delay
+                setTimeout(() => {
+                    if (currentWordIndex < weekWords.length - 1) {
+                        currentWordIndex++;
+                        displayWord();
+                    } else {
+                        showCompletion();
+                    }
+                }, 1000);
+            } else {
+                buttons[selectedIndex].classList.add('incorrect');
+                buttons[correctIndex].classList.add('correct');
+                buttons.forEach(btn => btn.disabled = true);
+                
+                // Move to next word after delay
+                setTimeout(() => {
+                    if (currentWordIndex < weekWords.length - 1) {
+                        currentWordIndex++;
+                        displayWord();
+                    } else {
+                        showCompletion();
+                    }
+                }, 1500);
+            }
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const total = weekWords.length;
+            const percentage = (correctCount / total) * 100;
+            document.getElementById('progressBar').value = percentage;
+            document.getElementById('progressLabel').textContent = `${correctCount} / ${total} correct`;
+        }
+
+        // Start Over - return to week selection
+        function startOver() {
+            speechSynthesis.cancel();
+            document.getElementById('quizArea').style.display = 'none';
+            document.getElementById('weekSelection').style.display = 'block';
+            document.getElementById('weekSelector').value = '';
+            currentWeek = null;
+            currentWordIndex = 0;
+            correctCount = 0;
+        }
+
+        // Handle start over button
+        document.getElementById('startOverBtn').addEventListener('click', startOver);
+
+        // Show completion message
+        function showCompletion() {
+            const total = weekWords.length;
+            const percentage = Math.round((correctCount / total) * 100);
+            document.getElementById('wordCard').innerHTML = `
+                <div style="text-align: center; padding: 40px;">
+                    <h2>Week Complete!</h2>
+                    <p>You got ${correctCount} out of ${total} correct (${percentage}%)</p>
+                </div>
+            `;
+        }
+
+        // Load words on page load
+        loadWords();
+    </script>
 </body>
 </html>
