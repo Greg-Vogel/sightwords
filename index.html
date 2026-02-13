@@ -17,15 +17,25 @@
             </select>
         </div>
 
+        <div id="modeSelection" style="display: none;">
+            <div id="weekLabel"></div>
+            <h3>Select a Practice Mode:</h3>
+            <div style="display: flex; gap: 20px; justify-content: center;">
+                <button id="spellingModeBtn" class="mode-btn">Spelling</button>
+                <button id="multipleChoiceModeBtn" class="mode-btn">Multiple Choice</button>
+            </div>
+        </div>
+
         <div id="quizArea" style="display: none;">
             <div id="weekLabel"></div>
-            
+
             <div id="progressContainer">
                 <div id="progressLabel"></div>
                 <progress id="progressBar" value="0" max="100"></progress>
             </div>
 
-            <div id="wordCard">
+            <!-- Multiple Choice Mode -->
+            <div id="multipleChoiceCard" style="display: none;">
                 <button id="wordDisplay" class="word-btn">🔊</button>
                 <div id="optionsGrid">
                     <button class="option-btn" data-index="0"></button>
@@ -34,6 +44,17 @@
                     <button class="option-btn" data-index="3"></button>
                 </div>
             </div>
+
+            <!-- Spelling Mode -->
+            <div id="spellingCard" style="display: none;">
+                <button id="spellingWordDisplay" class="word-btn">🔊</button>
+                <div id="spellingInputContainer">
+                    <input type="text" id="spellingInput" placeholder="Type the word..." class="spelling-input" autocomplete="off" spellcheck="false">
+                    <button id="spellingCheckBtn" class="spelling-check-btn">✓</button>
+                </div>
+                <div id="spellingFeedback"></div>
+            </div>
+
             <button id="startOverBtn" class="start-over-btn">Start Over</button>
         </div>
     </div>
@@ -45,6 +66,7 @@
         let correctCount = 0;
         let weekWords = [];
         let currentUtterance = null;
+        let currentMode = null; // 'spelling' or 'multipleChoice'
 
         // Play word sound using TTS
         function playWordSound(description) {
@@ -119,27 +141,57 @@
         document.getElementById('weekSelector').addEventListener('change', (e) => {
             const selectedWeek = e.target.value;
             if (selectedWeek) {
-                startQuiz(selectedWeek);
+                showModeSelection(selectedWeek);
             }
         });
 
-        // Start quiz for selected week
-        function startQuiz(weekValue) {
+        // Show mode selection screen
+        function showModeSelection(weekValue) {
             currentWeek = weekValue;
             const weekData = wordsData.find(w => w.week === weekValue);
             weekWords = weekData.words;
+
+            // Hide week selector and show mode selection
+            document.getElementById('weekSelection').style.display = 'none';
+            document.getElementById('modeSelection').style.display = 'block';
+
+            // Show selected week as label in mode selection
+            document.querySelectorAll('#modeSelection #weekLabel')[0].textContent = 'Week of ' + formatWeekDate(weekValue);
+        }
+
+        // Handle mode selection buttons
+        document.getElementById('spellingModeBtn').addEventListener('click', () => {
+            startQuiz('spelling');
+        });
+
+        document.getElementById('multipleChoiceModeBtn').addEventListener('click', () => {
+            startQuiz('multipleChoice');
+        });
+
+        // Start quiz with selected mode
+        function startQuiz(mode) {
+            currentMode = mode;
             currentWordIndex = 0;
             correctCount = 0;
 
-            // Hide selector and show quiz
-            document.getElementById('weekSelection').style.display = 'none';
+            // Hide mode selection and show quiz
+            document.getElementById('modeSelection').style.display = 'none';
             document.getElementById('quizArea').style.display = 'block';
-            
-            // Show selected week as label
-            document.getElementById('weekLabel').textContent = 'Week of ' + formatWeekDate(weekValue);
-            document.getElementById('weekLabel').style.pointerEvents = 'none';
 
-            displayWord();
+            // Show selected week as label in quiz area
+            document.querySelectorAll('#quizArea #weekLabel')[0].textContent = 'Week of ' + formatWeekDate(currentWeek);
+
+            // Show the appropriate mode
+            if (mode === 'spelling') {
+                document.getElementById('multipleChoiceCard').style.display = 'none';
+                document.getElementById('spellingCard').style.display = 'block';
+                displaySpellingWord();
+            } else {
+                document.getElementById('spellingCard').style.display = 'none';
+                document.getElementById('multipleChoiceCard').style.display = 'block';
+                displayWord();
+            }
+
             updateProgress();
         }
 
@@ -215,6 +267,75 @@
             }
         }
 
+        // Display current word for spelling mode
+        function displaySpellingWord() {
+            const currentWord = weekWords[currentWordIndex];
+            const spellingWordBtn = document.getElementById('spellingWordDisplay');
+            const spellingInput = document.getElementById('spellingInput');
+            const spellingCheckBtn = document.getElementById('spellingCheckBtn');
+
+            spellingWordBtn.innerHTML = '🔊';
+            spellingWordBtn.onclick = () => playWordSound(currentWord.description);
+
+            // Play word sound automatically after a short delay
+            setTimeout(() => {
+                playWordSound(currentWord.description);
+            }, 500);
+
+            // Clear input and feedback, re-enable input
+            spellingInput.value = '';
+            spellingInput.disabled = false;
+            spellingCheckBtn.disabled = false;
+            spellingInput.focus();
+            document.getElementById('spellingFeedback').innerHTML = '';
+            document.getElementById('spellingFeedback').className = '';
+        }
+
+        // Handle spelling submission
+        function handleSpellingSubmit() {
+            const currentWord = weekWords[currentWordIndex];
+            const userInput = document.getElementById('spellingInput').value.trim();
+            const feedbackDiv = document.getElementById('spellingFeedback');
+            const spellingInput = document.getElementById('spellingInput');
+
+            // Case-insensitive comparison
+            const isCorrect = userInput.toLowerCase() === currentWord.word.toLowerCase();
+
+            if (isCorrect) {
+                correctCount++;
+                feedbackDiv.innerHTML = '✓ Correct!';
+                feedbackDiv.className = 'spelling-feedback correct';
+                spellingInput.disabled = true;
+                document.getElementById('spellingCheckBtn').disabled = true;
+                updateProgress();
+
+                // Move to next word after delay
+                setTimeout(() => {
+                    if (currentWordIndex < weekWords.length - 1) {
+                        currentWordIndex++;
+                        displaySpellingWord();
+                    } else {
+                        showCompletion();
+                    }
+                }, 1000);
+            } else {
+                feedbackDiv.innerHTML = `✗ Incorrect. The word was: <strong>${currentWord.word}</strong>`;
+                feedbackDiv.className = 'spelling-feedback incorrect';
+                spellingInput.disabled = true;
+                document.getElementById('spellingCheckBtn').disabled = true;
+
+                // Move to next word after delay
+                setTimeout(() => {
+                    if (currentWordIndex < weekWords.length - 1) {
+                        currentWordIndex++;
+                        displaySpellingWord();
+                    } else {
+                        showCompletion();
+                    }
+                }, 3000);
+            }
+        }
+
         // Update progress bar
         function updateProgress() {
             const total = weekWords.length;
@@ -227,15 +348,31 @@
         function startOver() {
             speechSynthesis.cancel();
             document.getElementById('quizArea').style.display = 'none';
+            // Show week selection so the user can choose a different week
+            document.getElementById('modeSelection').style.display = 'none';
             document.getElementById('weekSelection').style.display = 'block';
             document.getElementById('weekSelector').value = '';
             currentWeek = null;
             currentWordIndex = 0;
             correctCount = 0;
+            currentMode = null;
         }
 
         // Handle start over button
         document.getElementById('startOverBtn').addEventListener('click', startOver);
+
+        // Handle spelling input - Submit on Enter or Check button click
+        document.getElementById('spellingInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.target.disabled) {
+                handleSpellingSubmit();
+            }
+        });
+
+        document.getElementById('spellingCheckBtn').addEventListener('click', () => {
+            if (!document.getElementById('spellingInput').disabled) {
+                handleSpellingSubmit();
+            }
+        });
 
         // Show completion message
         function showCompletion() {

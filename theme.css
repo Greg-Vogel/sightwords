@@ -260,3 +260,161 @@ button {
     font-family: inherit;
 }
 
+/* Mode Selection Styling */
+#modeSelection {
+    text-align: center;
+}
+
+.mode-btn {
+    background-color: #3e3e42;
+    color: #d4d4d4;
+    border: 2px solid #555555;
+    padding: 15px 40px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 150px;
+}
+
+.mode-btn:hover {
+    background-color: #3e3e42;
+    border-color: #007acc;
+    box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.2);
+}
+
+.mode-btn:active {
+    background-color: #007acc;
+    border-color: #007acc;
+    color: #1e1e1e;
+}
+
+/* Spelling Mode Styling */
+#spellingCard {
+    background-color: #252526;
+    border: 1px solid #3e3e42;
+    border-radius: 8px;
+    padding: 30px;
+    margin-bottom: 20px;
+}
+
+#spellingWordDisplay {
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    color: #d4d4d4;
+    margin-bottom: 40px;
+    padding: 20px 10px;
+    background-color: #3e3e42;
+    border: 2px solid #007acc;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#spellingWordDisplay:hover {
+    background-color: #453f3f;
+    border-color: #569cd6;
+    box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.2);
+}
+
+#spellingWordDisplay:active {
+    background-color: #007acc;
+    border-color: #007acc;
+    color: #1e1e1e;
+}
+
+#spellingInputContainer {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.spelling-input {
+    flex: 1;
+    background-color: #3e3e42;
+    color: #d4d4d4;
+    border: 2px solid #555555;
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: inherit;
+    transition: all 0.2s;
+}
+
+.spelling-input:focus {
+    outline: none;
+    border-color: #007acc;
+    box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.2);
+}
+
+.spelling-input:disabled {
+    background-color: #252526;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.spelling-check-btn {
+    background-color: #3e3e42;
+    color: #d4d4d4;
+    border: 2px solid #555555;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 50px;
+}
+
+.spelling-check-btn:hover:not(:disabled) {
+    background-color: #3e3e42;
+    border-color: #007acc;
+    box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.2);
+}
+
+.spelling-check-btn:active:not(:disabled) {
+    background-color: #007acc;
+    border-color: #007acc;
+    color: #1e1e1e;
+}
+
+.spelling-check-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+#spellingFeedback {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.spelling-feedback.correct {
+    background-color: rgba(78, 201, 176, 0.2);
+    color: #4ec9b0;
+    border: 1px solid #4ec9b0;
+}
+
+.spelling-feedback.incorrect {
+    background-color: rgba(209, 105, 105, 0.2);
+    color: #d16969;
+    border: 1px solid #d16969;
+}
+
+
